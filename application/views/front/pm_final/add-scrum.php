@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <?php
 
-$this->load->view('front/include/header');
+//$this->load->view('front/include/header');
 
 $this->load->view('front/include/sidebar');
 
@@ -24,19 +24,19 @@ $this->load->view('front/include/sidebar');
 
                 <div class="md-card-content large-padding">
 
-                    <form id="form_validation" class="uk-form-stacked"  action="<?php echo base_url('Scrum/add_action');?>" method="post"  >
+                    <form id="form_validation" class="uk-form-stacked"  action="<?php echo base_url('scrum/add_action');?>" method="post"  >
 
                         <div class="uk-grid  data-uk-grid-margin">
 
                             <div class="uk-width-medium-1-1">
 
-                                <?php if($this->session->flashdata('FAILED')){?>
+                                <?php if(!empty($this->session->flashdata('FAILED'))){?>
 
                                 <div class="alert alert-danger" style="margin-left:0px"><?=$this->session->flashdata('FAILED');?></div>
 
                                 <?php }?>
 
-                             <?php if($this->session->flashdata('SUCCESS')){?>
+                             <?php if(!empty($this->session->flashdata('SUCCESS'))){?>
 
                                 <div class="alert alert-success" style="margin-left:0px"><?=$this->session->flashdata('SUCCESS');?></div>
 
@@ -57,8 +57,7 @@ $this->load->view('front/include/sidebar');
                                     <label for="proj_name">Project name<span class="req">*</span></label>
 
                                     <input type="text" name="proj_name" value="<?php echo set_value('proj_name'); ?>"  data-parsley-trigger="change" required  class="md-input" />
-
-                                    <?php if(form_error('proj_name')){?><div class="inline-label uk-badge uk-badge-danger hover"><?php echo form_error('proj_name'); ?></div><?php } ?>
+                                     <span style="color:#FF0000"><?php echo form_error('proj_name', '<div class="error">', '</div>'); ?></span>
 
                                 </div>
 
@@ -75,7 +74,7 @@ $this->load->view('front/include/sidebar');
 
                                     <input type="text" name="proj_desc" value="<?php echo set_value('proj_desc'); ?>"  data-parsley-trigger="change" required  class="md-input" />
 
-                                    <?php if(form_error('proj_desc')){?><div class="inline-label uk-badge uk-badge-danger hover"><?php echo form_error('proj_desc'); ?></div><?php } ?>
+                                    <span style="color:#FF0000"><?php echo form_error('proj_name', '<div class="error">', '</div>'); ?></span>
 
                                 </div>
 
@@ -102,9 +101,7 @@ $this->load->view('front/include/sidebar');
          <?php   } ?>
                                     </select>
 
-                                    <?php if(form_error('proj_team')){?>
-                                    <div class="inline-label uk-badge uk-badge-danger hover" >
-                                    <?php echo form_error('proj_team'); ?></div><?php } ?>
+                                    <span style="color:#FF0000"><?php echo form_error('proj_team', '<div class="error">', '</div>'); ?></span>
 
                                 </div>
 
@@ -131,7 +128,7 @@ $this->load->view('front/include/sidebar');
          <?php   } ?>  
                                     </select>
 
-                                    <?php if(form_error('dept')){?><div class="inline-label uk-badge uk-badge-danger hover"><?php echo form_error('state'); ?></div><?php } ?>
+                                  <span style="color:#FF0000"><?php echo form_error('dept', '<div class="error">', '</div>'); ?></span>
 
                                 </div>
 
@@ -153,8 +150,7 @@ $this->load->view('front/include/sidebar');
                                                 <input class="md-input" type="text" name="start_date" id="start_date" data-uk-datepicker="{format:'YYYY-MM-DD'}">
                                                 </div>
                                                   <?php if(form_error('start_date')){?><div class="inline-label uk-badge uk-badge-danger hover">
-                                                <?php echo form_error('start_date'); ?></div><?php } ?>
-
+                                               <span style="color:#FF0000"><?php echo form_error('start_date', '<div class="error">', '</div>'); ?></span>
                                                 
                                             </div>
                                         </div>
@@ -167,7 +163,7 @@ $this->load->view('front/include/sidebar');
                                                 <input class="md-input" type="text" name="deadline" id="deadline" data-uk-datepicker="{format:'YYYY-MM-DD'}">
                                                 </div>
                                                   <?php if(form_error('deadline')){?><div class="inline-label uk-badge uk-badge-danger hover">
-                                                <?php echo form_error('deadline'); ?></div><?php } ?>
+                                                 <span style="color:#FF0000"><?php echo form_error('deadline', '<div class="error">', '</div>'); ?></span>
 
                                                 
                                             </div>
@@ -282,41 +278,6 @@ $this->load->view('front/include/sidebar');
 
     
 
-    <script>
-
-        $(function() {
-
-            // enable hires images
-
-            altair_helpers.retina_images();
-
-            // fastClick (touch devices)
-
-            if(Modernizr.touch) {
-
-                FastClick.attach(document.body);
-
-            }
-
-        });
-
-    </script>
-
-<script type="text/javascript">
-function add(obj)
-{
-    var id=obj.id.split('_')[2];
-        alert(id);
-
-    $('#last_question_no').val(parseInt(id)+1);
-    $('#question_b_'+id).before('<input name="question_'+(parseInt(id)+1)+'" id="question_'+(parseInt(id)+1)+'" type="text" data-parsley-trigger="change"  class="md-input">');
-    obj.id="question_b_"+(parseInt(id)+1);
-
-}
-
-
-   
-</script>
 
 
 
